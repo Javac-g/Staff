@@ -21,4 +21,13 @@ public class View {
         System.out.println("User age: " + user.getAge());
     }
 
+    public Integer getNum(String msg){
+        System.out.println(msg);
+        return scanner.nextInt();
+    }
+    public String getStr(String msg){
+        System.out.println(msg);
+        return scanner.next();
+    }
+
 }
