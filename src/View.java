@@ -16,9 +16,9 @@ public class View {
         System.out.println(msg);
     }
     public void print_data(User user){
+        System.out.println("User name: " + user.getName());
         System.out.println("User age: " + user.getAge());
-        System.out.println("User age: " + user.getAge());
-        System.out.println("User age: " + user.getAge());
+
     }
 
     public Integer getNum(String msg){
