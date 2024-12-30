@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 
 public class Model {
-    private ArrayList<User> userlist = new ArrayList<>();
+    private final ArrayList<User> userList = new ArrayList<>();
 
     public User addUser(String name, int age, int id){
         User user = new User();
         user.setAge(age);
         user.setName(name);
         user.setId(id);
-        userlist.add(user);
+        userList.add(user);
         return user;
     }
 
     public User findUser(int id){
-        for(User x: userlist){
+        for(User x: userList){
             if (x.getId() == id){
                 return x;
             }
@@ -32,13 +32,13 @@ public class Model {
     }
     public Integer deleteUser(String name){
         int index = -1;
-        for (int i = 0; i < userlist.size(); i++){
-            if (userlist.get(i).getName().equals(name)){
+        for (int i = 0; i < userList.size(); i++){
+            if (userList.get(i).getName().equals(name)){
                 index = i;
             }
         }
         if (index != -1){
-            userlist.remove(index);
+            userList.remove(index);
         }
         return index;
     }
