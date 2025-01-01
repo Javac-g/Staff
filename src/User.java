@@ -3,7 +3,8 @@ import java.util.Objects;
 public class User {
 
     private int age,id;
-    private String name;
+    private String first_name, last_name;
+    private  String email;
 
     public User(){
 
