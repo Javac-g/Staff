@@ -20,6 +20,11 @@ public class User implements UserPattern{
         return age;
     }
 
+    @Override
+    public UUID getID() {
+        return null;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -54,6 +59,7 @@ public class User implements UserPattern{
         hash = hash * 3 + Objects.hashCode(age);
         hash = hash * 3 + Objects.hashCode(id);
         hash = hash * 3 + Objects.hashCode(firstName);
+        hash = hash * 3 + Objects.hashCode(email);
         hash = hash * 3 + Objects.hashCode(lastName);
         return hash;
         /* return Objects.hash(age, id, name)  / more compact realisation */
@@ -66,7 +72,8 @@ public class User implements UserPattern{
         return  Objects.equals(this.firstName, user.getFirstName()) &&
                 Objects.equals(this.lastName, user.getLastName()) &&
                 Objects.equals(this.age, user.getAge()) &&
-                Objects.equals(this.id, user.getId());
+                Objects.equals(this.id, user.getID()) &&
+                Objects.equals(this.email, user.getEmail());
 
     }
 
