@@ -16,16 +16,18 @@ public class Controller {
             switch (choose){
                 case 1 ->{
                     view.print_message("Adding new user");
-                    User user = model.addUser(view.getStr("Enter name:"),
-                                              view.getNum("Enter age: "),
-                                              view.getNum("Enter ID: ") );
-                                              view.print_message("User added: ");
-                                              view.print_data(user);
+                    User user = model.addUser(view.getStr("Enter Email: "),
+                                              view.getStr("Enter first name:"),
+                                              view.getStr("Enter last name:"),
+                                              view.getNum("Enter age: "));
+
+                    view.print_message("User added: ");
+                    view.print_data(user);
 
                 }
                 case 2 ->{
                     view.print_message("Search menu:");
-                    User user = model.findUser(view.getNum("Enter ID to find: "));
+                    UserPattern user = model.findUser(view.getStr("Enter Email of users to find: "));
                     if (user != null){
                         view.print_data(user);
                     }else {
@@ -34,9 +36,14 @@ public class Controller {
                 }
                 case 3 ->{
                     view.print_message("Update menu:");
-                    User user = model.updateUser(view.getNum("Enter id to update: "),
+                    UserPattern user = model.updateUser(view.getStr("Enter Email of user to update: "),
                                                  view.getNum("Enter new Age:"),
-                                                 view.getStr("Enter new Name: "));
+                                                 view.getStr("Enter new First Name: "),
+                                                 view.getStr("Enter new Last Name: "),
+                                                  view.getStr("Enter new Last Name: ")
+
+                    );
+
                     if (user != null){
                         view.print_data(user);
                     }else {

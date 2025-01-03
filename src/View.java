@@ -15,9 +15,11 @@ public class View {
     public void print_message(String msg){
         System.out.println(msg);
     }
-    public void print_data(User user){
-        System.out.println("User name: " + user.getName());
+    public void print_data(UserPattern user){
+        System.out.println("User first name: " + user.getFirstName());
+        System.out.println("User last name: " + user.getLastName());
         System.out.println("User age: " + user.getAge());
+        System.out.println("User Email: " + user.getEmail());
 
     }
 
