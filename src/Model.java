@@ -1,20 +1,26 @@
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class Model {
-    private final ArrayList<UserPattern> userList = new ArrayList<>();
+    private final ArrayList<UserPattern> userList = new ArrayList<>();  private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    public static boolean isValidEmail(String email) {
+        // Compile regex into a Pattern
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        // Match the input email against the pattern
+        return pattern.matcher(email).matches();
+    }
 
-    public User addUser(String email,String firstName, String lastName, int age){
+    public User addUser(String firstName, String lastName, int age, String email){
         User user = new User();
         for (UserPattern x : userList){
             if(x.getEmail().equals(email)){
                 throw new IllegalArgumentException("Email already in system");
-            }else {
-                user.setEmail(email);
             }
-        }
 
+        }
+        user.setEmail(email);
         if (age < 18){
             throw new IllegalArgumentException("User is underage");
         }else{
@@ -69,6 +75,10 @@ public class Model {
                     }
                 }
                 x.setFirstName(newFirstName);
+            }
+            if ( !isValidEmail(email) ) {
+
+                throw new IllegalArgumentException("Invalid email format: " + email);
             }
             if (newAge < 18){
                 throw new IllegalArgumentException("User is underage");
