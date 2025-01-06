@@ -14,13 +14,14 @@ public class Controller {
             try {
                 switch (choose) {
                     case 1 -> {
-                        view.print_message("Adding new user");
                         String firstName = null;
                         String lastName = null;
                         int age = 0;
                         String email = null;
-
                         boolean validInput = false;
+
+                        view.print_message("Adding new user");
+
                         while (!validInput) {
 
                             try {
@@ -44,32 +45,44 @@ public class Controller {
                         view.print_data(user);
                     }
                     case 2 -> {
+
                         view.print_message("Search menu:");
+
                         UserPattern user = null;
+
                         boolean validInput = false;
+
                         while (!validInput) {
                             try {
                                 String email = view.getStr("Enter Email of users to find: ");
+
                                 if (!Model.isValidEmail(email)) {
                                     throw new IllegalArgumentException("Invalid email format: " + email);
                                 }
+
                                 user = model.findUser(email);
                                 validInput = true;
+
                             } catch (IllegalArgumentException e) {
                                 System.out.println("Error: " + e.getMessage());
                             }
                         }
 
                         if (user != null) {
+
                             view.print_data(user);
+
                         } else {
+
                             view.print_message("User not found");
                         }
                     }
                     case 3 -> {
                         view.print_message("Update menu:");
+
                         UserPattern user = null;
                         boolean validInput = false;
+
                         while (!validInput) {
                             try {
                                 String email = view.getStr("Enter Email of user to update: ");
@@ -101,7 +114,7 @@ public class Controller {
                         boolean validInput = false;
                         while (!validInput) {
                             try {
-                                String nameToDelete = view.getStr("Enter name to delete");
+                                String nameToDelete = view.getStr("Enter email to delete");
                                 index = model.deleteUser(nameToDelete);
                                 validInput = true;
                             } catch (IllegalArgumentException e) {
