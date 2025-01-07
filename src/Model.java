@@ -76,10 +76,11 @@ public class Model {
                 }
                 x.setFirstName(newFirstName);
             }
-            if ( !isValidEmail(email) ) {
+            if ( !isValidEmail(email) || !isValidEmail(newEmail) ) {
 
                 throw new IllegalArgumentException("Invalid email format: " + email);
             }
+            x.setEmail(newEmail);
             if (newAge < 18){
                 throw new IllegalArgumentException("User is underage");
             }else{
