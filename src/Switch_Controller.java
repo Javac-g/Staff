@@ -120,16 +120,16 @@ public class Switch_Controller {
     public void case_four(){
         view.print_message("Delete menu: ");
         int index = -1;
-        boolean validInput = false;
-        while (!validInput) {
+
+
             try {
                 String email = view.getStr("Enter email to delete");
                 index = model.deleteUser(email);
-                validInput = true;
+
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
             }
-        }
+
 
         if (index != -1) {
             view.print_message("Deleted user id: " + index);

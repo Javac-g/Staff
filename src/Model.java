@@ -9,10 +9,10 @@ public class Model {
 
     public static boolean isValidEmail(String email) {
         try {
-            // Compile regex into a Pattern
+
             Pattern pattern = Pattern.compile(EMAIL_REGEX);
-            // Match the input email against the pattern
             return pattern.matcher(email).matches();
+
         } catch (Exception e) {
             System.err.println("Error validating email: " + e.getMessage());
             return false;
@@ -34,7 +34,9 @@ public class Model {
             } else {
                 user.setAge(age);
             }
-
+            if(firstName.isEmpty() && lastName.isEmpty()){
+                throw new IllegalArgumentException("Name parameters should be filled");
+            }
             user.setFirstName(firstName);
             user.setLastName(lastName);
             userList.add(user);
@@ -59,29 +61,11 @@ public class Model {
         }
     }
 
-    private UserPattern internalSearch(String email) {
-        try {
-            UUID id = null;
-            for (UserPattern z : userList) {
-                if (z.getEmail().equals(email)) {
-                    id = z.getID();
-                }
-            }
-            for (UserPattern x : userList) {
-                if (Objects.equals(x.getID(), id)) {
-                    return x;
-                }
-            }
-            return null;
-        } catch (Exception e) {
-            System.err.println("Error in internal search: " + e.getMessage());
-            return null;
-        }
-    }
+
 
     public UserPattern updateUser(String email, int newAge, String newFirstName, String newLastName, String newEmail) {
         try {
-            UserPattern x = internalSearch(email);
+            UserPattern x = findUser(email);
 
             if (x != null) {
                 if (newFirstName != null && !newFirstName.isEmpty()) {
@@ -118,20 +102,22 @@ public class Model {
 
     public Integer deleteUser(String email) {
         try {
+
             int index = -1;
-            UserPattern user = internalSearch(email);
-            if (user == null) {
-                throw new IllegalArgumentException("User not found");
-            }
             for (int i = 0; i < userList.size(); i++) {
-                if (userList.get(i).getID().equals(user.getID())) {
+                if (userList.get(i).getEmail().equals(email)) {
                     index = i;
+                    break;
                 }
             }
+
+
             if (index != -1) {
                 userList.remove(index);
+                return index;
+            } else {
+                throw new IllegalArgumentException("User not found in list");
             }
-            return index;
         } catch (Exception e) {
             System.err.println("Error deleting user: " + e.getMessage());
             return null;

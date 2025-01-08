@@ -6,9 +6,6 @@ public class Controller {
 
     public void initController() {
 
-
-
-
         while (loop) {
 
             switchController.getView().print_menu();
@@ -16,26 +13,16 @@ public class Controller {
 
             try {
                 switch (choose) {
-                    case 1 -> {
-                        switchController.case_one();
-                    }
-                    case 2 -> {
-                        switchController.case_two();
-
-                    }
-                    case 3 -> {
-                       switchController.case_three();
-                    }
-                    case 4 -> {
-                        switchController.case_four();
-                    }
+                    case 1 -> switchController.case_one();
+                    case 2 -> switchController.case_two();
+                    case 3 -> switchController.case_three();
+                    case 4 -> switchController.case_four();
                     case 5 -> {
                         switchController.getView().print_message(" * Bye * Bye * ");
                         loop = false;
                     }
                     default -> switchController.getView().print_message("Wrong menu number");
                 }
-
             } catch (IllegalStateException i) {
                 System.out.println("UUID: " + i.getMessage());
             }
