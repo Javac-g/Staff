@@ -1,11 +1,32 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class Model {
+
     private final ArrayList<UserPattern> userList = new ArrayList<>();
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+
+    public static void log(String type, UserPattern user){
+        byte[] data = ("Type: " + type + "/nID: " + user.getID() + "Name: " + user.getFirstName() + " " + user.getLastName()).getBytes();
+
+        try(FileOutputStream fileInputStream = new FileOutputStream("log.dat", true);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream)){
+
+            byteArrayOutputStream.write(data);
+            byteArrayOutputStream.writeTo(fileInputStream);
+            dataOutputStream.writeUTF("Email: " + user.getEmail() + "/nAge: " + user.getAge());
+
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static boolean isValidEmail(String email) {
         try {
@@ -40,6 +61,7 @@ public class Model {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             userList.add(user);
+            log("Added: ",user);
             return user;
         } catch (Exception e) {
             System.err.println("Error adding user: " + e.getMessage());
@@ -51,9 +73,12 @@ public class Model {
         try {
             for (UserPattern z : userList) {
                 if (z.getEmail().equals(email)) {
+                    log("Searched,Founded: ",z);
                     return z;
                 }
             }
+            Person person = new Person(0,"John","Dou",email);
+            log("Searched,Not found: ",person);
             return null;
         } catch (Exception e) {
             System.err.println("Error finding user: " + e.getMessage());
@@ -68,6 +93,7 @@ public class Model {
             UserPattern x = findUser(email);
 
             if (x != null) {
+                log("Searched,To Update: ",x);
                 if (newFirstName != null && !newFirstName.isEmpty()) {
                     x.setFirstName(newFirstName);
                 }
@@ -91,6 +117,7 @@ public class Model {
                 } else {
                     x.setAge(newAge);
                 }
+                log("Updated: ",x);
                 return x;
             }
             return null;
@@ -111,7 +138,7 @@ public class Model {
                 }
             }
 
-
+            log("Deleted: ",userList.get(index));
             if (index != -1) {
                 userList.remove(index);
                 return index;
