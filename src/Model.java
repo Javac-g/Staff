@@ -40,7 +40,7 @@ public class Model {
         }
     }
 
-    public User addUser(String firstName, String lastName, int age, String email) {
+    public UserPattern addUser(String firstName, String lastName, int age, String email) {
         try {
             User user = new User();
             for (UserPattern x : userList) {
@@ -65,7 +65,7 @@ public class Model {
             return user;
         } catch (Exception e) {
             System.err.println("Error adding user: " + e.getMessage());
-            return null;
+            return new Person("Johm","Dou");
         }
     }
 
@@ -79,51 +79,54 @@ public class Model {
             }
             Person person = new Person(0,"John","Dou",email);
             log("Searched,Not found: ",person);
-            return null;
+            return person;
         } catch (Exception e) {
+            log("Error,Not found: ",new Person(0,"John","Dou",email));
             System.err.println("Error finding user: " + e.getMessage());
-            return null;
+            return  new Person(0,"John","Dou",email);
         }
     }
 
 
 
-    public UserPattern updateUser(String email, int newAge, String newFirstName, String newLastName, String newEmail) {
+    public UserPattern updateUser(String email,String newFirstName, String newLastName, String updated_email , int updated_age) {
         try {
             UserPattern x = findUser(email);
+            if (x == null) {
+                throw new IllegalArgumentException("User not found for email: " + email);
+            }
+            View view = new View();
 
-            if (x != null) {
-                log("Searched,To Update: ",x);
-                if (newFirstName != null && !newFirstName.isEmpty()) {
-                    x.setFirstName(newFirstName);
-                }
-                if (newLastName != null && !newLastName.isEmpty()) {
-                    x.setLastName(newLastName);
-                }
-                if (newEmail != null && !newEmail.isEmpty()) {
-                    for (UserPattern y : userList) {
-                        if (y.getEmail().equals(newEmail)) {
-                            throw new IllegalArgumentException("Email is already in system");
-                        }
-                    }
-                }
-                if (!isValidEmail(email) || !isValidEmail(newEmail)) {
+            log("Searched,To Update: ", x);
+
+            if (newFirstName != null && !newFirstName.isEmpty()) {
+                x.setFirstName(newFirstName);
+            }
+
+            if (newLastName != null && !newLastName.isEmpty()) {
+                x.setLastName(newLastName);
+            }
+            if (updated_email != null && !updated_email.isEmpty()) {
+                if (!isValidEmail(updated_email)) {
                     throw new IllegalArgumentException("Invalid email format: " + email);
                 }
-                x.setEmail(newEmail);
-
-                if (newAge < 18) {
-                    throw new IllegalArgumentException("User is underage");
-                } else {
-                    x.setAge(newAge);
+                for (UserPattern y : userList) {
+                    if (y.getEmail().equals(updated_email)) {
+                        throw new IllegalArgumentException("Email is already in system");
+                    }
                 }
-                log("Updated: ",x);
-                return x;
+                x.setEmail(updated_email);
             }
-            return null;
+
+            if (updated_age < 18 ) {
+                throw new IllegalArgumentException("User is underage");
+            } x.setAge(updated_age);
+
+            log("Updated: ",x);
+            return x;
         } catch (Exception e) {
             System.err.println("Error updating user: " + e.getMessage());
-            return null;
+            return new Person(0,"John","Dou",email);
         }
     }
 
@@ -147,7 +150,7 @@ public class Model {
             }
         } catch (Exception e) {
             System.err.println("Error deleting user: " + e.getMessage());
-            return null;
+            return  0;
         }
     }
 }

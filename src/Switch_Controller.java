@@ -44,7 +44,7 @@ public class Switch_Controller {
             }
         }
 
-        User user = model.addUser(firstName, lastName, age, email);
+        UserPattern user = model.addUser(firstName, lastName, age, email);
         if (user != null){
             view.print_message("User added: ");
             view.print_data(user);
@@ -89,7 +89,6 @@ public class Switch_Controller {
 
         view.print_message("Update menu:");
 
-        UserPattern user = null;
         boolean validInput = false;
 
         while (!validInput) {
@@ -98,24 +97,42 @@ public class Switch_Controller {
                 if (!Model.isValidEmail(email)) {
                     throw new IllegalArgumentException("Invalid email format: " + email);
                 }
-                user = model.updateUser(
-                        email,
-                        view.getNum("Enter new Age:"),
-                        view.getStr("Enter new First Name: "),
-                        view.getStr("Enter new Last Name: "),
-                        view.getStr("Enter new Email: ")
-                );
-                validInput = true;
+                UserPattern existingUser = model.findUser(email);
+                if (existingUser == null) {
+                    throw new IllegalArgumentException("User not found for email: " + email);
+                }
+                // Gather update details
+                String newFirstName = (view.getStr("Update first name? y/n").equalsIgnoreCase("y"))
+                        ? view.getStr("Enter new first name: ") : existingUser.getFirstName();
+
+                String newLastName = (view.getStr("Update last name? y/n").equalsIgnoreCase("y"))
+                        ? view.getStr("Enter new last name: ") : existingUser.getLastName();
+
+                String newEmail = (view.getStr("Update email? y/n").equalsIgnoreCase("y"))
+                        ? view.getStr("Enter new email: ") : null;
+
+                int newAge = (view.getStr("Update age? y/n").equalsIgnoreCase("y"))
+                        ? view.getNum("Enter new age: ") : existingUser.getAge();
+
+                // Call model's update method
+                UserPattern updatedUser = model.updateUser(email, newFirstName, newLastName, newEmail, newAge);
+
+                view.print_message("User successfully updated:");
+                view.print_data(updatedUser);
+
+                if (updatedUser != null) {
+                    view.print_message("User updated successfully: " + updatedUser);
+                    validInput = true;
+                } else {
+                    throw new Exception("Failed to update user");
+                }
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
 
-        if (user != null) {
-            view.print_data(user);
-        } else {
-            view.print_message("Not Found");
-        }
     }
     public void case_four(){
         view.print_message("Delete menu: ");

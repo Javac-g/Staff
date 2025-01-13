@@ -20,6 +20,13 @@ public class Person implements UserPattern {
         this.id = id;
     }
 
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = 0;
+        this.email = "NONE@NONE.NONE";
+    }
+
     public int getAge() {
         return age;
     }
