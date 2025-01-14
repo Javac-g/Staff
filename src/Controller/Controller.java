@@ -1,3 +1,5 @@
+package Controller;
+
 public class Controller {
 
     boolean loop = true;

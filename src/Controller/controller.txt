@@ -3,8 +3,8 @@ public class Controller {
     public void initController(){
 
 
-        Model model = new Model();
-        View view = new View();
+        Model.Model model = new Model.Model();
+        View.View view = new View.View();
         boolean loop = true;
         while (loop){
 
@@ -16,7 +16,7 @@ public class Controller {
                 switch (choose) {
                     case 1 -> {
                         view.print_message("Adding new user");
-                        User user = model.addUser(
+                        Model.User user = model.addUser(
                                 view.getStr("Enter first name:"),
                                 view.getStr("Enter last name:"),
                                 view.getNum("Enter age: "),
@@ -24,22 +24,22 @@ public class Controller {
                         );
 
 
-                        view.print_message("User added: ");
+                        view.print_message("Model.User added: ");
                         view.print_data(user);
 
                     }
                     case 2 -> {
                         view.print_message("Search menu:");
-                        UserPattern user = model.findUser(view.getStr("Enter Email of users to find: "));
+                        Model.UserPattern user = model.findUser(view.getStr("Enter Email of users to find: "));
                         if (user != null) {
                             view.print_data(user);
                         } else {
-                            view.print_message("User not found");
+                            view.print_message("Model.User not found");
                         }
                     }
                     case 3 -> {
                         view.print_message("Update menu:");
-                        UserPattern user = model.updateUser(view.getStr("Enter Email of user to update: "),
+                        Model.UserPattern user = model.updateUser(view.getStr("Enter Email of user to update: "),
                                 view.getNum("Enter new Age:"),
                                 view.getStr("Enter new First Name: "),
                                 view.getStr("Enter new Last Name: "),

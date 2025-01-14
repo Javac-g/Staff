@@ -1,15 +1,16 @@
+package Controller;
 
-
+import Model.Model;
+import Model.UserPattern;
+import View.View;
 
 public class Switch_Controller {
 
 
-    public Model model = new Model();
-    public View view = new View();
+    private final Model model = new Model();
+    private final View view = new View();
 
-    public Model getModel() {
-        return model;
-    }
+
 
     public View getView() {
         return view;
@@ -34,7 +35,7 @@ public class Switch_Controller {
                 age = view.getNum("Enter age: ");
                 email = view.getStr("Enter Email: ");
 
-                if (!Model.isValidEmail(email)) {
+                if (Model.ValidEmail(email)) {
                     throw new IllegalArgumentException("Invalid email format: " + email);
                 }
 
@@ -46,7 +47,7 @@ public class Switch_Controller {
 
         UserPattern user = model.addUser(firstName, lastName, age, email);
         if (user != null){
-            view.print_message("User added: ");
+            view.print_message("Model.User added: ");
             view.print_data(user);
         }
 
@@ -63,7 +64,7 @@ public class Switch_Controller {
             try {
                 String email = view.getStr("Enter Email of users to find: ");
 
-                if (!Model.isValidEmail(email)) {
+                if (Model.ValidEmail(email)) {
                     throw new IllegalArgumentException("Invalid email format: " + email);
                 }
 
@@ -81,7 +82,7 @@ public class Switch_Controller {
 
         } else {
 
-            view.print_message("User not found");
+            view.print_message("Model.User not found");
         }
     }
 
@@ -94,12 +95,12 @@ public class Switch_Controller {
         while (!validInput) {
             try {
                 String email = view.getStr("Enter Email of user to update: ");
-                if (!Model.isValidEmail(email)) {
+                if (Model.ValidEmail(email)) {
                     throw new IllegalArgumentException("Invalid email format: " + email);
                 }
                 UserPattern existingUser = model.findUser(email);
                 if (existingUser == null) {
-                    throw new IllegalArgumentException("User not found for email: " + email);
+                    throw new IllegalArgumentException("Model.User not found for email: " + email);
                 }
                 // Gather update details
                 String newFirstName = (view.getStr("Update first name? y/n").equalsIgnoreCase("y"))
@@ -117,15 +118,11 @@ public class Switch_Controller {
                 // Call model's update method
                 UserPattern updatedUser = model.updateUser(email, newFirstName, newLastName, newEmail, newAge);
 
-                view.print_message("User successfully updated:");
+                view.print_message("Model.User successfully updated:");
                 view.print_data(updatedUser);
 
-                if (updatedUser != null) {
-                    view.print_message("User updated successfully: " + updatedUser);
-                    validInput = true;
-                } else {
-                    throw new Exception("Failed to update user");
-                }
+                view.print_message("Model.User updated successfully: " + updatedUser);
+                validInput = true;
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
             } catch (Exception e) {

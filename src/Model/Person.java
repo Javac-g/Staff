@@ -1,9 +1,11 @@
+package Model;
+
 import java.util.UUID;
 
 public class Person implements UserPattern {
     private int age;
     private String firstName, lastName, email;
-    private UUID id;
+
 
     public Person(int age, String firstName, String lastName, String email) {
         this.age = age;
@@ -12,13 +14,6 @@ public class Person implements UserPattern {
         this.email = email;
     }
 
-    public Person(int age, String firstName, String lastName, String email, UUID id) {
-        this.age = age;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.id = id;
-    }
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
@@ -64,11 +59,5 @@ public class Person implements UserPattern {
         this.email = email;
     }
 
-    public UUID getId() {
-        return id;
-    }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
 }

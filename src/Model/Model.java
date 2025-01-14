@@ -1,8 +1,9 @@
+package Model;
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.UUID;
 import java.util.regex.Pattern;
+
 
 public class Model {
 
@@ -28,15 +29,15 @@ public class Model {
         }
     }
 
-    public static boolean isValidEmail(String email) {
+    public static boolean ValidEmail(String email) {
         try {
 
             Pattern pattern = Pattern.compile(EMAIL_REGEX);
-            return pattern.matcher(email).matches();
+            return !pattern.matcher(email).matches();
 
         } catch (Exception e) {
             System.err.println("Error validating email: " + e.getMessage());
-            return false;
+            return true;
         }
     }
 
@@ -51,7 +52,7 @@ public class Model {
             user.setEmail(email);
 
             if (age < 18) {
-                throw new IllegalArgumentException("User is underage");
+                throw new IllegalArgumentException("Model.User is underage");
             } else {
                 user.setAge(age);
             }
@@ -93,9 +94,9 @@ public class Model {
         try {
             UserPattern x = findUser(email);
             if (x == null) {
-                throw new IllegalArgumentException("User not found for email: " + email);
+                throw new IllegalArgumentException("Model.User not found for email: " + email);
             }
-            View view = new View();
+
 
             log("Searched,To Update: ", x);
 
@@ -107,7 +108,7 @@ public class Model {
                 x.setLastName(newLastName);
             }
             if (updated_email != null && !updated_email.isEmpty()) {
-                if (!isValidEmail(updated_email)) {
+                if (ValidEmail(updated_email)) {
                     throw new IllegalArgumentException("Invalid email format: " + email);
                 }
                 for (UserPattern y : userList) {
@@ -119,7 +120,7 @@ public class Model {
             }
 
             if (updated_age < 18 ) {
-                throw new IllegalArgumentException("User is underage");
+                throw new IllegalArgumentException("Model.User is underage");
             } x.setAge(updated_age);
 
             log("Updated: ",x);
@@ -146,7 +147,7 @@ public class Model {
                 userList.remove(index);
                 return index;
             } else {
-                throw new IllegalArgumentException("User not found in list");
+                throw new IllegalArgumentException("Model.User not found in list");
             }
         } catch (Exception e) {
             System.err.println("Error deleting user: " + e.getMessage());

@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -7,7 +9,7 @@ public class User implements UserPattern{
 
     private int age;
     private String firstName, lastName, email;
-    private UUID id;
+    private final UUID id;
 
 
     public User(){
