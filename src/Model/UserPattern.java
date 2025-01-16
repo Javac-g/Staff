@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface UserPattern {
@@ -14,4 +15,5 @@ public interface UserPattern {
     String getFirstName();
     String getLastName();
     String getEmail();
+    LocalDateTime getDate();
 }

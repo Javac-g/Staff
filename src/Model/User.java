@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -10,12 +11,27 @@ public class User implements UserPattern{
     private int age;
     private String firstName, lastName, email;
     private final UUID id;
+    private LocalDateTime creationDate;
 
 
     public User(){
         Supplier<UUID> randomSupplier = UUID ::randomUUID;
         Stream<UUID> infiniteStream = Stream.generate(randomSupplier);
         id = infiniteStream.findFirst().orElseThrow(()->new IllegalStateException("No UUID generated"));
+        this.creationDate = LocalDateTime.now();
+    }
+
+    private User(String email) {
+        this.email = email;
+        this.firstName = "John";
+        this.lastName = "Dou";
+        this.age = 0;
+        id = null;
+        this.creationDate = LocalDateTime.now();
+    }
+
+    public LocalDateTime getDate() {
+        return creationDate;
     }
 
     public int getAge(){
@@ -55,6 +71,9 @@ public class User implements UserPattern{
         this.email = email;
     }
 
+    public static User getUnknown(String email){
+        return new User(email);
+    }
     @Override
     public int hashCode(){
         int hash = 7;

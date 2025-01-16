@@ -14,13 +14,13 @@ public class Model {
     public static void log(String type, UserPattern user){
         byte[] data = ("Type: " + type + "/nID: " + user.getID() + "Name: " + user.getFirstName() + " " + user.getLastName()).getBytes();
 
-        try(FileOutputStream fileInputStream = new FileOutputStream("log.dat", true);
+        try(FileOutputStream fileInputStream = new FileOutputStream("info.log", true);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream)){
 
             byteArrayOutputStream.write(data);
             byteArrayOutputStream.writeTo(fileInputStream);
-            dataOutputStream.writeUTF("Email: " + user.getEmail() + "/nAge: " + user.getAge());
+            dataOutputStream.writeUTF("Email: " + user.getEmail() + "/nAge: " + user.getAge() + "/nDate: " + user.getDate()) ;
 
 
 
@@ -66,7 +66,7 @@ public class Model {
             return user;
         } catch (Exception e) {
             System.err.println("Error adding user: " + e.getMessage());
-            return new Person("Johm","Dou");
+            return User.getUnknown(email);
         }
     }
 
@@ -78,13 +78,13 @@ public class Model {
                     return z;
                 }
             }
-            Person person = new Person(0,"John","Dou",email);
+            User person = User.getUnknown(email);
             log("Searched,Not found: ",person);
             return person;
         } catch (Exception e) {
-            log("Error,Not found: ",new Person(0,"John","Dou",email));
+            log("Error,Not found: ",User.getUnknown(email));
             System.err.println("Error finding user: " + e.getMessage());
-            return  new Person(0,"John","Dou",email);
+            return  User.getUnknown(email);
         }
     }
 
@@ -127,7 +127,7 @@ public class Model {
             return x;
         } catch (Exception e) {
             System.err.println("Error updating user: " + e.getMessage());
-            return new Person(0,"John","Dou",email);
+            return User.getUnknown(email);
         }
     }
 

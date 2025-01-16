@@ -47,7 +47,7 @@ public class Switch_Controller {
 
         UserPattern user = model.addUser(firstName, lastName, age, email);
         if (user != null){
-            view.print_message("Model.User added: ");
+            view.print_message("User added: ");
             view.print_data(user);
         }
 
@@ -82,7 +82,7 @@ public class Switch_Controller {
 
         } else {
 
-            view.print_message("Model.User not found");
+            view.print_message("User not found");
         }
     }
 
@@ -118,10 +118,10 @@ public class Switch_Controller {
                 // Call model's update method
                 UserPattern updatedUser = model.updateUser(email, newFirstName, newLastName, newEmail, newAge);
 
-                view.print_message("Model.User successfully updated:");
+                view.print_message("User successfully updated:");
                 view.print_data(updatedUser);
 
-                view.print_message("Model.User updated successfully: " + updatedUser);
+                view.print_message("User updated successfully: " + updatedUser.getID());
                 validInput = true;
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());

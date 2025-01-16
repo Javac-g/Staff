@@ -20,10 +20,12 @@ public class View {
         System.out.println(msg);
     }
     public void print_data(UserPattern user){
-        System.out.println("Model.User first name: " + user.getFirstName());
-        System.out.println("Model.User last name: " + user.getLastName());
-        System.out.println("Model.User age: " + user.getAge());
-        System.out.println("Model.User Email: " + user.getEmail());
+        System.out.println("User first name: " + user.getFirstName());
+        System.out.println("User last name: " + user.getLastName());
+        System.out.println("User age: " + user.getAge());
+        System.out.println("User Email: " + user.getEmail());
+        System.out.println("Creation date: " + user.getDate());
+
 
     }
 
