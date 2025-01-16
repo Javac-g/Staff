@@ -1,26 +1,32 @@
 package Model;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Model {
 
     private final ArrayList<UserPattern> userList = new ArrayList<>();
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    private static final Logger logger = LoggerFactory.getLogger(Model.class);
 
 
     public static void log(String type, UserPattern user){
-        byte[] data = ("\nType: " + type + "\nID: " + user.getID() + "\nName: " + user.getFirstName() + " " + user.getLastName()).getBytes();
 
-        try(FileOutputStream fileInputStream = new FileOutputStream("info.log", true);
+        logger.info("Action: {}, Details: {}", type,user.toString());
+        try(FileOutputStream fileOutputStream = new FileOutputStream("info.log", true);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream)){
 
-            byteArrayOutputStream.write(data);
-            byteArrayOutputStream.writeTo(fileInputStream);
-            dataOutputStream.writeUTF("\nEmail: " + user.getEmail() + "\nAge: " + user.getAge() + "\nDate: " + user.getDate()) ;
+            dataOutputStream.writeUTF("Type: " + type + "\n");
+            dataOutputStream.writeUTF("ID: " + user.getID() + "\n");
+            dataOutputStream.writeUTF("Name: " + user.getFirstName() + " " + user.getLastName() + "\n");
+            dataOutputStream.writeUTF("Email: " + user.getEmail() + "\n");
+            dataOutputStream.writeUTF("Age: " + user.getAge() + "\n");
+            dataOutputStream.writeUTF("Date: " + user.getDate() + "\n");
+            byteArrayOutputStream.writeTo(fileOutputStream);
 
 
 
