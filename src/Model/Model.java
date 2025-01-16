@@ -12,7 +12,7 @@ public class Model {
 
 
     public static void log(String type, UserPattern user){
-        byte[] data = ("Type: " + type + "/nID: " + user.getID() + "Name: " + user.getFirstName() + " " + user.getLastName()).getBytes();
+        byte[] data = ("\nType: " + type + "\nID: " + user.getID() + "\nName: " + user.getFirstName() + " " + user.getLastName()).getBytes();
 
         try(FileOutputStream fileInputStream = new FileOutputStream("info.log", true);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -20,7 +20,7 @@ public class Model {
 
             byteArrayOutputStream.write(data);
             byteArrayOutputStream.writeTo(fileInputStream);
-            dataOutputStream.writeUTF("Email: " + user.getEmail() + "/nAge: " + user.getAge() + "/nDate: " + user.getDate()) ;
+            dataOutputStream.writeUTF("\nEmail: " + user.getEmail() + "\nAge: " + user.getAge() + "\nDate: " + user.getDate()) ;
 
 
 

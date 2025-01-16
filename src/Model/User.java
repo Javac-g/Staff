@@ -11,7 +11,7 @@ public class User implements UserPattern{
     private int age;
     private String firstName, lastName, email;
     private final UUID id;
-    private LocalDateTime creationDate;
+    private final LocalDateTime creationDate;
 
 
     public User(){
@@ -40,7 +40,7 @@ public class User implements UserPattern{
 
     @Override
     public UUID getID() {
-        return null;
+        return id;
     }
 
     public void setAge(int age) {
@@ -97,6 +97,18 @@ public class User implements UserPattern{
                 Objects.equals(this.email, user.getEmail());
 
     }
+    @Override
+    public String toString(){
+        return  String.format(
+                "ID: %s%nName: %s %s%nEmail: %s%nAge: %d%nDate: %s%n",
+                id != null ? id : "null",
+                firstName != null ? firstName : "Unknown",
+                lastName != null ? lastName : "Unknown",
+                email != null ? email : "Unknown",
+                age,
+                creationDate != null ? creationDate : "Unknown"
+        );
 
+    }
 
 }

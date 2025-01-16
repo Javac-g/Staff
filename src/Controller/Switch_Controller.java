@@ -121,7 +121,7 @@ public class Switch_Controller {
                 view.print_message("User successfully updated:");
                 view.print_data(updatedUser);
 
-                view.print_message("User updated successfully: " + updatedUser.getID());
+                view.print_message("User updated successfully: " + updatedUser);
                 validInput = true;
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
