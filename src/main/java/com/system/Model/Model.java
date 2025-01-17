@@ -1,4 +1,4 @@
-package Model;
+package main.java.com.system.Model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -58,7 +58,7 @@ public class Model {
             user.setEmail(email);
 
             if (age < 18) {
-                throw new IllegalArgumentException("Model.User is underage");
+                throw new IllegalArgumentException("main.java.com.system.Model.User is underage");
             } else {
                 user.setAge(age);
             }
@@ -100,7 +100,7 @@ public class Model {
         try {
             UserPattern x = findUser(email);
             if (x == null) {
-                throw new IllegalArgumentException("Model.User not found for email: " + email);
+                throw new IllegalArgumentException("main.java.com.system.Model.User not found for email: " + email);
             }
 
 
@@ -126,7 +126,7 @@ public class Model {
             }
 
             if (updated_age < 18 ) {
-                throw new IllegalArgumentException("Model.User is underage");
+                throw new IllegalArgumentException("main.java.com.system.Model.User is underage");
             } x.setAge(updated_age);
 
             log("Updated: ",x);
@@ -153,7 +153,7 @@ public class Model {
                 userList.remove(index);
                 return index;
             } else {
-                throw new IllegalArgumentException("Model.User not found in list");
+                throw new IllegalArgumentException("main.java.com.system.Model.User not found in list");
             }
         } catch (Exception e) {
             System.err.println("Error deleting user: " + e.getMessage());

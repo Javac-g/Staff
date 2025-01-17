@@ -1,8 +1,8 @@
-package Controller;
+package main.java.com.system.Controller;
 
-import Model.Model;
-import Model.UserPattern;
-import View.View;
+import main.java.com.system.Model.Model;
+import main.java.com.system.Model.UserPattern;
+import main.java.com.system.View.View;
 
 public class Switch_Controller {
 
@@ -100,7 +100,7 @@ public class Switch_Controller {
                 }
                 UserPattern existingUser = model.findUser(email);
                 if (existingUser == null) {
-                    throw new IllegalArgumentException("Model.User not found for email: " + email);
+                    throw new IllegalArgumentException("main.java.com.system.Model.User not found for email: " + email);
                 }
                 // Gather update details
                 String newFirstName = (view.getStr("Update first name? y/n").equalsIgnoreCase("y"))

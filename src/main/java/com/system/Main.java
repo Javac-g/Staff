@@ -1,4 +1,6 @@
-import Controller.Controller;
+package main.java.com.system;
+
+import main.java.com.system.Controller.Controller;
 
 public class Main {
 

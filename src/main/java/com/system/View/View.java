@@ -1,6 +1,6 @@
-package View;
+package main.java.com.system.View;
 
-import Model.UserPattern;
+import main.java.com.system.Model.UserPattern;
 
 import java.util.Scanner;
 
