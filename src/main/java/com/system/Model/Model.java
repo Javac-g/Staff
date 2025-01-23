@@ -1,7 +1,10 @@
 package main.java.com.system.Model;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,15 +81,19 @@ public class Model {
 
     public UserPattern findUser(String email) {
         try {
-            for (UserPattern z : userList) {
-                if (z.getEmail().equals(email)) {
-                    log("Searched,Founded: ",z);
-                    return z;
-                }
-            }
-            User person = User.getUnknown(email);
-            log("Searched,Not found: ",person);
-            return person;
+            UserPattern foundUser = userList.stream()
+                    .filter(user -> user.getEmail().equals(email))
+                    .findFirst()
+                    .orElseGet(() -> {
+                        User unknownUser = User.getUnknown(email);
+                        log("Searched, Not found: ", unknownUser);
+                        return unknownUser;
+                    });
+
+
+
+            log("Searched,founded: ",foundUser);
+            return foundUser;
         } catch (Exception e) {
             log("Error,Not found: ",User.getUnknown(email));
             System.err.println("Error finding user: " + e.getMessage());
@@ -100,7 +107,7 @@ public class Model {
         try {
             UserPattern x = findUser(email);
             if (x == null) {
-                throw new IllegalArgumentException("main.java.com.system.Model.User not found for email: " + email);
+                throw new IllegalArgumentException("Mogel - User not found for email: " + email);
             }
 
 
@@ -139,25 +146,20 @@ public class Model {
 
     public Integer deleteUser(String email) {
         try {
+            // Find the index of the user
+            int index = IntStream.range(0, userList.size())
+                    .filter(i -> userList.get(i).getEmail().equals(email))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Model - delete.User not found in list"));
 
-            int index = -1;
-            for (int i = 0; i < userList.size(); i++) {
-                if (userList.get(i).getEmail().equals(email)) {
-                    index = i;
-                    break;
-                }
-            }
+            // Log and remove the user
+            log("Deleted: ", userList.get(index));
+            userList.remove(index);
+            return index;
 
-            log("Deleted: ",userList.get(index));
-            if (index != -1) {
-                userList.remove(index);
-                return index;
-            } else {
-                throw new IllegalArgumentException("main.java.com.system.Model.User not found in list");
-            }
         } catch (Exception e) {
             System.err.println("Error deleting user: " + e.getMessage());
-            return  0;
+            return 0;
         }
     }
 }
