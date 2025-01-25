@@ -23,7 +23,7 @@ public class User implements UserPattern{
 
     private User(String email) {
         this.email = email;
-        this.firstName = "John";
+        this.firstName = "John|Jane";
         this.lastName = "Dou";
         this.age = 0;
         id = null;
