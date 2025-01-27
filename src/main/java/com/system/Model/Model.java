@@ -61,7 +61,7 @@ public class Model {
             user.setEmail(email);
 
             if (age < 18) {
-                throw new IllegalArgumentException("main.java.com.system.Model.User is underage");
+                throw new IllegalArgumentException("Model - User is underage");
             } else {
                 user.setAge(age);
             }
