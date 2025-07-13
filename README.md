@@ -1,6 +1,6 @@
 
 <div id="header">
-  <img src="https://github.com/Javac-g/Staff/blob/main/SMS.png?raw=true"/>
+  <img src="https://github.com/Javac-g/Staff/SMS.png?raw=true"/>
 </div>
 
 # Staff Management System
