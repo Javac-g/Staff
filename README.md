@@ -1,3 +1,8 @@
+
+<div id="header">
+  <img src="https://github.com/Javac-g/Staff/blob/main/SMS.png?raw=true"/>
+</div>
+
 # Staff Management System
 
 A Java-based web application designed to manage staff records efficiently. This project includes functionalities for handling employee data, roles, and departmental information through a user-friendly interface.
